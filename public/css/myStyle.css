@@ -1,0 +1,15 @@
+body{
+    height: 100vh;
+}
+nav{
+    min-height: 5vh;
+}
+main{
+    min-height: 75vh;
+}
+footer{
+    min-height: 20vh;
+}
+.cursorLinkPointer{
+    cursor: pointer;
+}

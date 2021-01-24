@@ -1,4 +1,4 @@
-<footer class="bg-dark">
+<footer class="bg-dark d-flex align-items-center">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">LOGO</div>

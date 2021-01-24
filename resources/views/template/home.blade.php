@@ -11,13 +11,13 @@
     <!-- Main styles for this application-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
-    @yield('css')
     <link href="{{ asset('css/coreui-chartjs.css') }}" rel="stylesheet">
+    @yield('css')
 </head>
 <body>
     @include('site.shared.navbar')
-        <main class="c-main">
-            @yield('content') 
+        <main class="c-main bh-100" id="home">
+            @yield('content')
         </main>
     @include('site.shared.footer')
 
