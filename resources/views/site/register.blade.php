@@ -51,17 +51,18 @@
         {{-- INICIO DIV - DADOS PESSOAIS --}}
         <div id="dataPerson" hidden>
             <h5 class="mt-5 mb-2">Dados Pessoais</h5>
+            <div class="alert alert-danger mb-2" role="alert" id="msgValidationFormFolks" hidden></div>
             <div class="form-group">
                 <label for="name">Nome</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Informe o seu nome completo">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Informe o seu nome completo" required>
             </div>
             <div class="form-group">
                 <label for="birth">Data de nascimento</label>
-                <input type="date" class="form-control" id="birth" name="date-of-birth">
+                <input type="date" class="form-control" id="birth" name="date-of-birth" required>
             </div>
             <div class="form-group">
                 <label for="cpf">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Informe o seu CPF">
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Informe o seu CPF" required>
             </div>
             <section id="phone-group">
                 <div class="row mb-2">
@@ -88,7 +89,7 @@
                         CEP
                     </label>
                     <div class="col-md-10 ">
-                        <input type="text" class="form-control" id="cepPerson" name="cepPerson" placeholder="Informe o seu CEP">
+                        <input type="text" class="form-control" id="cepPerson" name="cepPerson" placeholder="Informe o seu CEP" required onchange="loadCep(this)">
                     </div>
                 </div>
                 <div class="row">
@@ -108,7 +109,7 @@
                                 Nº
                             </label>
                             <div class="col-md-10 ">
-                                <input type="text" class="form-control" id="numberPerson" name="numberPerson">
+                                <input type="text" class="form-control" id="numberPerson" name="numberPerson" required>
                             </div>
                         </div>
                     </div>
@@ -169,11 +170,11 @@
                     </div>
                 </div>
                 <div class="align-self-center" id="phone-div">
-                    <div class="form-group row" id="divPhoneStart">
+                    <div class="form-group row" id="divOfficePhoneStart">
                         <div class="col-10 align-self-center">
-                            <input type="text" class="form-control" name="phone[]" placeholder="Informe o seu número do telefone">
+                            <input type="text" class="form-control" name="phoneOffice[]" placeholder="Informe o seu número do telefone">
                         </div>
-                        <label id="deletePhoneStart" class="col-2 col-form-label align-self-center text-center cursorLinkPointer" onclick="removeInputPhone(this)">
+                        <label id="deleteOfficePhoneStart" class="col-2 col-form-label align-self-center text-center cursorLinkPointer" onclick="removeInputPhone(this)">
                             <i class="c-icon c-icon-2xl cil-trash"></i>
                         </label>
                     </div>
@@ -182,31 +183,31 @@
             <section id="address-group" class="mt-2">
                 <h6 class="mt-2 mb-2">Endereço</h6>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label" for="cepPerson">
+                    <label class="col-md-2 col-form-label" for="cepOffice">
                         CEP
                     </label>
                     <div class="col-md-10 ">
-                        <input type="text" class="form-control" id="cepPerson" name="cepPerson" placeholder="Informe o seu CEP">
+                        <input type="text" class="form-control" id="cepOffice" name="cepOffice" placeholder="Informe o seu CEP" onchange="loadCep(this)">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="streetPerson">
+                            <label class="col-md-2 col-form-label" for="streetOffice">
                                 Rua
                             </label>
                             <div class="col-md-10 ">
-                                <input type="text" class="form-control" id="streetPerson" name="streetPerson" disabled>
+                                <input type="text" class="form-control" id="streetOffice" name="streetOffice" disabled>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="numberPerson">
+                            <label class="col-md-2 col-form-label" for="numberOffice">
                                 Nº
                             </label>
                             <div class="col-md-10 ">
-                                <input type="text" class="form-control" id="numberPerson" name="numberPerson">
+                                <input type="text" class="form-control" id="numberOffice" name="numberOffice">
                             </div>
                         </div>
                     </div>
@@ -214,39 +215,39 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="neighborhoodPerson">
+                            <label class="col-md-2 col-form-label" for="neighborhoodOffice">
                                 Bairro
                             </label>
                             <div class="col-md-10 ">
-                                <input type="text" class="form-control" id="neighborhoodPerson" name="neighborhoodPerson" disabled>
+                                <input type="text" class="form-control" id="neighborhoodOffice" name="neighborhoodOffice" disabled>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="cityPerson">
+                            <label class="col-md-2 col-form-label" for="cityOffice">
                                 Cidade
                             </label>
                             <div class="col-md-10 ">
-                                <input type="text" class="form-control" id="cityPerson" name="cityPerson" disabled>
+                                <input type="text" class="form-control" id="cityOffice" name="cityOffice" disabled>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label" for="statePerson">
+                    <label class="col-md-2 col-form-label" for="stateOffice">
                         Estado
                     </label>
                     <div class="col-md-10 ">
-                        <input type="text" class="form-control" id="statePerson" name="statePerson" disabled>
+                        <input type="text" class="form-control" id="stateOffice" name="stateOffice" disabled>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label" for="complementPerson">
+                    <label class="col-md-2 col-form-label" for="complementOffice">
                         Complemento
                     </label>
                     <div class="col-md-10 ">
-                        <input type="text" class="form-control" id="complementPerson" name="complementPerson" placeholder="Informe o complemento">
+                        <input type="text" class="form-control" id="complementOffice" name="complementOffice" placeholder="Informe o complemento">
                     </div>
                 </div>
             </section>
@@ -255,6 +256,7 @@
         {{-- INICIO DIV - DADOS DE PAGAMENTO --}}
         <div id="dataPayment" hidden>
             <h5 class="mt-5 mb-2">Método de Pagamento</h5>
+            <div class="alert alert-danger mb-2" role="alert" id="msgValidationFormProfessional" hidden></div>
             <div class="form-group">
                 <label for="formGroupExampleInput">Label exemplo</label>
                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Input exemplo">
@@ -271,7 +273,7 @@
             <button type="button" class="btn btn-success" id="btnNext" onclick="nextScreen()">
                 Avançar
             </button>
-            <button class="btn btn-success" id="btnSave" hidden>
+            <button class="btn btn-success" id="btnSave" hidden onclick="valicationFormAll()">
                 Cadastrar
             </button>
         </div>
@@ -280,6 +282,7 @@
 @endsection
 
 @section('script')
+<script src="{{ asset('js/searchAddress.js')}}"></script>
 <script>
     //CONTROL SCREEN - VARIABLE
     let screenCurrent = "typeRegister";
@@ -288,6 +291,10 @@
     //INPUT PHONE - VARIABLE
     let countDivPhone = 0;
     let divPhone = document.getElementById("phone-div");
+
+    //VALIDATION FORM AND PROFILE
+    let optInputPj;
+    let optProfessional;
 
     //INPUT PHONE - FNC
     function addNewInputPhone(info){
@@ -308,9 +315,80 @@
         document.getElementById(`${idLabel}`).remove();
     }
 
+    function valicationFormAll(){
+        let msgError = "Ops! Parece que ficaram alguns campos em branco";
+        let errorDataPerson = false;
+        let errorDataOffice = false;
+        let alertItem = "msgValidationFormFolks";
+
+        let name = document.getElementById("name").value;
+        let cpf = document.getElementById("cpf").value;
+        let cepPerson = document.getElementById("cepPerson").value;
+        let streetPerson = document.getElementById("streetPerson").value;
+        let numberPerson = document.getElementById("numberPerson").value;
+        let neighborhoodPerson = document.getElementById("neighborhoodPerson").value;
+        let cityPerson = document.getElementById("cityPerson").value;
+        let statePerson = document.getElementById("statePerson").value;
+
+        // VALIDATION OF PERSONAL INPUTS
+        if((name == "" || name == undefined) || (cpf == "" || cpf == undefined) || (cepPerson == "" || cepPerson == undefined) || (streetPerson == "" || streetPerson == undefined) || (numberPerson == "" || numberPerson == undefined) || (neighborhoodPerson == "" || neighborhoodPerson == undefined) || (cityPerson == "" || cityPerson == undefined) || (statePerson == "" || statePerson == undefined)){
+            if(optProfessional){
+                msgError += " na sessão de dados pessoais";
+            }
+            errorDataPerson = true;
+        }
+        // VALIDATION OF PROFISSIONAL INPUTS
+        if(optProfessional){
+            alertItem = "msgValidationFormProfessional";
+            let cepOffice = document.getElementById("cepOffice").value;
+            let streetOffice = document.getElementById("streetOffice").value;
+            let numberOffice = document.getElementById("numberOffice").value;
+            let neighborhoodOffice = document.getElementById("neighborhoodOffice").value;
+            let cityOffice = document.getElementById("cityOffice").value;
+            let stateOffice = document.getElementById("stateOffice").value;
+            let cnpj = document.getElementById("cnpj");
+            let cnpfIsRequired = cnpj.required;
+            if(cnpfIsRequired){
+                cnpj = cnpj.value;
+            }else{
+                cnpj = "";
+            }
+            if((cnpj == "" || cnpj == undefined) || (cepOffice == "" || cepOffice == undefined) || (streetOffice == "" || streetOffice == undefined) || (numberOffice == "" || numberOffice == undefined) || (neighborhoodOffice == "" || neighborhoodOffice == undefined) || (cityOffice == "" || cityOffice == undefined) || (stateOffice == "" || stateOffice == undefined)){
+                if(errorDataPerson){
+                    msgError += " e na sessão dados profissionais";
+                }else{
+                    msgError += " na sessão dados profissionais";
+                }
+                errorDataOffice = true;
+            }
+        }
+        if(errorDataPerson || errorDataOffice){
+            document.getElementById(alertItem).textContent = msgError;
+            document.getElementById(alertItem).hidden = false;
+            setTimeout(() => {
+                document.getElementById(alertItem).hidden = true;
+            }, 10000);
+        }
+    }
+
+    function validateForm(data){
+        if(data){
+            optInputPj = document.getElementById("pj").checked;
+            if(optInputPj){
+                document.getElementById("cnpj").required = true;
+            }
+            document.getElementById("cepOffice").required = true;
+            document.getElementById("streetOffice").required = true;
+            document.getElementById("numberOffice").required = true;
+            document.getElementById("neighborhoodOffice").required = true;
+            document.getElementById("cityOffice").required = true;
+            document.getElementById("stateOffice").required = true;
+        }
+    }
+
     //CONTROL SCREEN - FNC
     function nextScreen(){
-        let optProfessional = document.getElementById("professional").checked;
+        optProfessional = document.getElementById("professional").checked;
         // console.log(`Valor de PF: ${optFolks}`);
         // console.log(`Valor de PJ: ${optProfessional}`);
         switch (screenCurrent) {
@@ -322,6 +400,8 @@
                 if(!optProfessional){
                     document.getElementById("btnSave").hidden = false;
                     document.getElementById("btnNext").hidden = true;
+                }else{
+                    validateForm(optProfessional);
                 }
                 break;
             case "dataPerson":
@@ -329,8 +409,8 @@
                     document.getElementById("typeRegisterPerson").hidden = false;
                     document.getElementById("dataPerson").hidden = true;
                     screenCurrent = "typeRegisterPerson";
-                    console.log("--------------------------------");
-                    console.log("Next - dataPerson");
+                    // console.log("--------------------------------");
+                    // console.log("Next - dataPerson");
                 }
                 break;
             case "typeRegisterPerson":
@@ -345,8 +425,8 @@
                     document.getElementById("dataOffice").hidden = false;
                     document.getElementById("typeRegisterPerson").hidden = true;
                     screenCurrent = "dataOffice";
-                    console.log("--------------------------------");
-                    console.log("Next - typeRegisterPerson");
+                    // console.log("--------------------------------");
+                    // console.log("Next - typeRegisterPerson");
                 }
                 break;
             case "dataOffice":
@@ -356,8 +436,8 @@
                     document.getElementById("btnNext").hidden = true;
                     document.getElementById("btnSave").hidden = false;
                     screenCurrent = "dataPayment";
-                    console.log("--------------------------------");
-                    console.log("Next - dataOffice");
+                    // console.log("--------------------------------");
+                    // console.log("Next - dataOffice");
                 }
                 break;
             default:
@@ -376,7 +456,7 @@
                 document.getElementById("typeRegister").hidden = false;
                 document.getElementById("dataPerson").hidden = true;
                 screenCurrent = "typeRegister";
-                console.log("Back - dataPerson");
+                // console.log("Back - dataPerson");
                 if(!optProfessional){
                     document.getElementById("btnSave").hidden = true;
                 }
@@ -386,7 +466,7 @@
                 document.getElementById("typeRegisterPerson").hidden = true;
                 if(optProfessional){
                     screenCurrent = "dataPerson";
-                    console.log("Back - typeRegisterPerson");
+                    // console.log("Back - typeRegisterPerson");
                 }
                 break;
             case "dataOffice":
@@ -397,7 +477,7 @@
                 document.getElementById("dataOffice").hidden = true;
                 if(optProfessional){
                     screenCurrent = "typeRegisterPerson";
-                    console.log("Back - dataOffice");
+                    // console.log("Back - dataOffice");
                 }
                 break;
             case "dataPayment":
@@ -407,8 +487,8 @@
                     document.getElementById("btnSave").hidden = true;
                     document.getElementById("btnNext").hidden = false;
                     screenCurrent = "dataOffice";
-                    console.log("--------------------------------");
-                    console.log("Back - dataPayment");
+                    // console.log("--------------------------------");
+                    // console.log("Back - dataPayment");
                 }
                 break;
 
