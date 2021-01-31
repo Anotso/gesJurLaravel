@@ -2,7 +2,7 @@
 
 @section('css')
 <style>
-    #phone-group, #address-group{
+    #phone-group, #address-group, #login-group{
         background-color: rgb(252, 252, 252);
         padding: 20px;
         border-radius: 5px;
@@ -56,15 +56,15 @@
                 <label for="name">Nome</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Informe o seu nome completo" required>
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="birth">Data de nascimento</label>
                 <input type="date" class="form-control" id="birth" name="date-of-birth" required>
-            </div>
+            </div> --}}
             <div class="form-group">
                 <label for="cpf">CPF</label>
                 <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Informe o seu CPF" required>
             </div>
-            <section id="phone-group">
+            {{-- <section id="phone-group">
                 <div class="row mb-2">
                     <div class="col-10"><h6>Telefone</h6></div>
                     <div class="col-2 align-self-center text-center cursorLinkPointer" onclick="addNewInputPhone('Person')">
@@ -150,6 +150,41 @@
                     </label>
                     <div class="col-md-10 ">
                         <input type="text" class="form-control" id="complementPerson" name="complementPerson" placeholder="Informe o complemento">
+                    </div>
+                </div>
+            </section> --}}
+            <section id="login-group" class="mt-2">
+                <h6 class="mt-2 mb-2">Dados de login</h6>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="cepPerson">
+                        E-mail
+                    </label>
+                    <div class="col-md-10 ">
+                        <input type="text" class="form-control" id="cepPerson" name="cepPerson" placeholder="Informe o seu CEP" required onchange="loadCep(this)">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="streetPerson">
+                        Confirme o e-mail
+                    </label>
+                    <div class="col-md-10 ">
+                        <input type="text" class="form-control" id="streetPerson" name="streetPerson" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="numberPerson">
+                        Senha
+                    </label>
+                    <div class="col-md-10 ">
+                        <input type="text" class="form-control" id="numberPerson" name="numberPerson" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="neighborhoodPerson">
+                        Confirme a senha
+                    </label>
+                    <div class="col-md-10 ">
+                        <input type="text" class="form-control" id="neighborhoodPerson" name="neighborhoodPerson" disabled>
                     </div>
                 </div>
             </section>
