@@ -176,7 +176,7 @@
                         Senha
                     </label>
                     <div class="col-md-10 ">
-                        <input type="password" class="form-control" id="pwd1" name="pwd1" required onchange="validadeInputsPass(this.value)">
+                        <input type="password" class="form-control" id="pwd1" name="pwd1" required onchange="validadeInputsPass(this)">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -184,7 +184,7 @@
                         Confirme a senha
                     </label>
                     <div class="col-md-10 ">
-                        <input type="password" class="form-control" id="pwd2" name="pwd2" required onchange="validadeInputsPass(this.value)">
+                        <input type="password" class="form-control" id="pwd2" name="pwd2" required onchange="validadeInputsPass(this)">
                     </div>
                 </div>
             </section>
@@ -388,43 +388,33 @@
                 }, 10000);
             }
         }
-        // if(stateEmail1){
-        //     console.log("entrou");
-        //     if(email1.value != email2.value && (email1 != "" || email1.value != undefined && email2.value != "" || email2.value != undefined)){
-        //         console.log("E-mail diferente");
-        //     }else if(pwd1 != pwd2 && (pwd1 != "" || pwd1 != undefined && pwd2 != "" || pwd2 != undefined)){
-        //         console.log("Senha diferente");
-        //     }else{
-        //         console.log("Todos");
-        //     }
-        // }else{
-        //     if(!stateEmail1){
-        //         email1.setCustomValidity("Por favor, informe um e-mail válido");
-        //         console.log("email1");
-        //     }
-        // }
     }
 
-    function validadeInputsPass(p){
-        var anUpperCase = /[A-Z]/;
-        var aLowerCase = /[a-z]/;
-        var aNumber = /[0-9]/;
-        var aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
-        var obj = {};
+    function validadeInputsPass(e){
+        let p = e.value;
+        let msg = document.getElementById("msgValidationFormFolks");
+
+        let anUpperCase = /[A-Z]/;
+        let aLowerCase = /[a-z]/;
+        let aNumber = /[0-9]/;
+        let aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
+        let obj = {};
         obj.result = true;
 
         if(p.length < 15){
             obj.result=false;
             obj.error="Not long enough!"
-            // return obj;
-            console.log("menor que 15");
+            msg.textContent = "A senha informada possui menos de 15 caracteres";
+            msg.hidden = false;
+            setTimeout(() => {
+                msg.hidden = true;
+            }, 10000);
         }else{
-            console.log("Maior que 15");
-            var numUpper = 0;
-            var numLower = 0;
-            var numNums = 0;
-            var numSpecials = 0;
-            for(var i=0; i<p.length; i++){
+            let numUpper = 0;
+            let numLower = 0;
+            let numNums = 0;
+            let numSpecials = 0;
+            for(let i=0; i<p.length; i++){
                 if(anUpperCase.test(p[i]))
                     numUpper++;
                 else if(aLowerCase.test(p[i]))
@@ -435,17 +425,20 @@
                     numSpecials++;
             }
 
-            if(numUpper < 2 || numLower < 2 || numNums < 2 || numSpecials <2){
+            if(numUpper < 1 || numLower < 2 || numNums < 2 || numSpecials < 1){
                 obj.result=false;
                 obj.error="Wrong Format!";
-                return obj;
-                console.log("Formato inválido");
-            }else{
-                console.log("Formato válido");
+                // return obj;
             }
         }
-
-        // return obj;
+        if(!obj.result){
+            msg.textContent = "A senha deve conter pelo menos uma letra maiúscula, um caracter especial e um número";
+            msg.hidden = false;
+            setTimeout(() => {
+                msg.hidden = true;
+            }, 10000);
+        }
+        // console.log(obj);
     }
 
     function valicationFormAll(){
