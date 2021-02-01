@@ -156,35 +156,35 @@
             <section id="login-group" class="mt-2">
                 <h6 class="mt-2 mb-2">Dados de login</h6>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label" for="cepPerson">
+                    <label class="col-md-2 col-form-label" for="email1">
                         E-mail
                     </label>
                     <div class="col-md-10 ">
-                        <input type="text" class="form-control" id="cepPerson" name="cepPerson" placeholder="Informe o seu CEP" required onchange="loadCep(this)">
+                        <input type="email" class="form-control" id="email1" name="email1" placeholder="Informe o seu e-mail" required onchange="validadeInputsLogin(this)">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label" for="streetPerson">
+                    <label class="col-md-2 col-form-label" for="email2">
                         Confirme o e-mail
                     </label>
                     <div class="col-md-10 ">
-                        <input type="text" class="form-control" id="streetPerson" name="streetPerson" disabled>
+                        <input type="email" class="form-control" id="email2" name="email2" placeholder="Confirme o seu e-mail" required onchange="validadeInputsLogin(this)">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label" for="numberPerson">
+                    <label class="col-md-2 col-form-label" for="pwd1">
                         Senha
                     </label>
                     <div class="col-md-10 ">
-                        <input type="text" class="form-control" id="numberPerson" name="numberPerson" required>
+                        <input type="password" class="form-control" id="pwd1" name="pwd1" required onchange="validadeInputsPass(this.value)">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label" for="neighborhoodPerson">
+                    <label class="col-md-2 col-form-label" for="pwd2">
                         Confirme a senha
                     </label>
                     <div class="col-md-10 ">
-                        <input type="text" class="form-control" id="neighborhoodPerson" name="neighborhoodPerson" disabled>
+                        <input type="password" class="form-control" id="pwd2" name="pwd2" required onchange="validadeInputsPass(this.value)">
                     </div>
                 </div>
             </section>
@@ -350,6 +350,104 @@
         document.getElementById(`${idLabel}`).remove();
     }
 
+    function validadeInputsLogin(val){
+        let emailPattern =  /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+        let stateEmail = emailPattern.test(val.value);
+        let msg = document.getElementById("msgValidationFormFolks");
+
+        if(val.id == "email1"){
+            if(!stateEmail){
+                msg.textContent = "Informe um e-mail válido";
+                msg.hidden = false;
+                setTimeout(() => {
+                    msg.hidden = true;
+                }, 10000);
+            }else{
+                let email2 = document.getElementById("email2").value;
+                if(val.value != email2){
+                    msg.textContent = "E-mails não conferem";
+                    msg.hidden = false;
+                    setTimeout(() => {
+                        msg.hidden = true;
+                    }, 10000);
+                }
+            }
+        }else{
+            let email1 = document.getElementById("email1").value;
+            if(!stateEmail){
+                msg.textContent = "Informe um e-mail válido";
+                msg.hidden = false;
+                setTimeout(() => {
+                    msg.hidden = true;
+                }, 10000);
+            }else if(val.value != email1){
+                msg.textContent = "E-mails não conferem";
+                msg.hidden = false;
+                setTimeout(() => {
+                    msg.hidden = true;
+                }, 10000);
+            }
+        }
+        // if(stateEmail1){
+        //     console.log("entrou");
+        //     if(email1.value != email2.value && (email1 != "" || email1.value != undefined && email2.value != "" || email2.value != undefined)){
+        //         console.log("E-mail diferente");
+        //     }else if(pwd1 != pwd2 && (pwd1 != "" || pwd1 != undefined && pwd2 != "" || pwd2 != undefined)){
+        //         console.log("Senha diferente");
+        //     }else{
+        //         console.log("Todos");
+        //     }
+        // }else{
+        //     if(!stateEmail1){
+        //         email1.setCustomValidity("Por favor, informe um e-mail válido");
+        //         console.log("email1");
+        //     }
+        // }
+    }
+
+    function validadeInputsPass(p){
+        var anUpperCase = /[A-Z]/;
+        var aLowerCase = /[a-z]/;
+        var aNumber = /[0-9]/;
+        var aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
+        var obj = {};
+        obj.result = true;
+
+        if(p.length < 15){
+            obj.result=false;
+            obj.error="Not long enough!"
+            // return obj;
+            console.log("menor que 15");
+        }else{
+            console.log("Maior que 15");
+            var numUpper = 0;
+            var numLower = 0;
+            var numNums = 0;
+            var numSpecials = 0;
+            for(var i=0; i<p.length; i++){
+                if(anUpperCase.test(p[i]))
+                    numUpper++;
+                else if(aLowerCase.test(p[i]))
+                    numLower++;
+                else if(aNumber.test(p[i]))
+                    numNums++;
+                else if(aSpecial.test(p[i]))
+                    numSpecials++;
+            }
+
+            if(numUpper < 2 || numLower < 2 || numNums < 2 || numSpecials <2){
+                obj.result=false;
+                obj.error="Wrong Format!";
+                return obj;
+                console.log("Formato inválido");
+            }else{
+                console.log("Formato válido");
+            }
+        }
+
+        // return obj;
+    }
+
     function valicationFormAll(){
         let msgError = "Ops! Parece que ficaram alguns campos em branco";
         let errorDataPerson = false;
@@ -358,15 +456,25 @@
 
         let name = document.getElementById("name").value;
         let cpf = document.getElementById("cpf").value;
-        let cepPerson = document.getElementById("cepPerson").value;
-        let streetPerson = document.getElementById("streetPerson").value;
-        let numberPerson = document.getElementById("numberPerson").value;
-        let neighborhoodPerson = document.getElementById("neighborhoodPerson").value;
-        let cityPerson = document.getElementById("cityPerson").value;
-        let statePerson = document.getElementById("statePerson").value;
+        let email1 = document.getElementById("email1").value;
+        let email2 = document.getElementById("email2").value;
+        let pwd1 = document.getElementById("pwd1").value;
+        let pwd2 = document.getElementById("pwd2").value;
+        // let cepPerson = document.getElementById("cepPerson").value;
+        // let streetPerson = document.getElementById("streetPerson").value;
+        // let numberPerson = document.getElementById("numberPerson").value;
+        // let neighborhoodPerson = document.getElementById("neighborhoodPerson").value;
+        // let cityPerson = document.getElementById("cityPerson").value;
+        // let statePerson = document.getElementById("statePerson").value;
 
         // VALIDATION OF PERSONAL INPUTS
-        if((name == "" || name == undefined) || (cpf == "" || cpf == undefined) || (cepPerson == "" || cepPerson == undefined) || (streetPerson == "" || streetPerson == undefined) || (numberPerson == "" || numberPerson == undefined) || (neighborhoodPerson == "" || neighborhoodPerson == undefined) || (cityPerson == "" || cityPerson == undefined) || (statePerson == "" || statePerson == undefined)){
+        // if((name == "" || name == undefined) || (cpf == "" || cpf == undefined) || (cepPerson == "" || cepPerson == undefined) || (streetPerson == "" || streetPerson == undefined) || (numberPerson == "" || numberPerson == undefined) || (neighborhoodPerson == "" || neighborhoodPerson == undefined) || (cityPerson == "" || cityPerson == undefined) || (statePerson == "" || statePerson == undefined)){
+        //     if(optProfessional){
+        //         msgError += " na sessão de dados pessoais";
+        //     }
+        //     errorDataPerson = true;
+        // }
+        if((name == "" || name == undefined) || (cpf == "" || cpf == undefined) || (email1 == "" || email1 == undefined) || (email2 == "" || email2 == undefined) || (pwd1 == "" || pwd1 == undefined) || (pwd2 == "" || pwd2 == undefined)){
             if(optProfessional){
                 msgError += " na sessão de dados pessoais";
             }
